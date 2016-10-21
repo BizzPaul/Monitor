@@ -31,7 +31,7 @@ class ActivityMonitor {
             m_Quota++;
             SaveQuota(context);
 
-            if (m_Quota >= Constants.MAX_QUOTA) {
+            if (m_Quota >= Constants.DEFAULT_MAX_QUOTA) {
                 result = true;
             }
         }
@@ -50,7 +50,7 @@ class ActivityMonitor {
     }
 
     int QuotaLeft() {
-        return Constants.MAX_QUOTA - m_Quota;
+        return Constants.DEFAULT_MAX_QUOTA - m_Quota;
     }
 
     void ReadQuota(Context context) {
