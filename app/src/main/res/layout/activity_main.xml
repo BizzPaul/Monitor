@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="125dp">
+        android:layout_alignParentTop="true">
 
         <CheckBox
             android:text="actief"
@@ -55,5 +55,12 @@
                 android:hint="@string/prompt_password" />
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/seekBar"
+        android:max="0"
+        android:progress="120" />
 
 </RelativeLayout>

@@ -9,7 +9,8 @@ final class Constants {
     static final String BROADCAST_ACTION = "com.example.android.threadsample.BROADCAST";
     // Defines the key for the status "extra" in an Intent
     static final String EXTENDED_DATA_STATUS = "com.example.android.threadsample.STATUS";
-    static final int MAX_QUOTA = 5;
+    static final String MAX_QUOTA_NAME = "max quota";
+    static final int MAX_QUOTA = 60;
     static final String QUOTA_STORAGE_NAME = "quota.txt";
     static final String QUOTA_STORAGE_DAYOFYEAR = "date";
     static final String QUOTA_STORAGE_VALUE = "value";

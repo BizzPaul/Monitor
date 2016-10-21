@@ -35,7 +35,6 @@ public class SchedulingService extends IntentService {
         } else {
             m_Monitor.ReadQuota(getBaseContext());
             if (m_Monitor.QuotaReached(getBaseContext())) {
-                //sendNotification(getString(Constants.QUOTA_REACHED_MESSAGE));
                 sendNotification(getString(R.string.quota_reached_message), 0);
 
                 // start obnoxious activity
@@ -97,10 +96,10 @@ public class SchedulingService extends IntentService {
         mBuilder.setContentIntent(contentIntent);
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
 
-        if (minutesLeft <= Constants.VIBRATIONTHRESHOLD) {
+        if (minutesLeft <= Constants.VIBRATION_THRESHOLD) {
             Vibrator v = (Vibrator) getBaseContext().getSystemService(Context.VIBRATOR_SERVICE);
             // Vibrate for 500 milliseconds
-            int time = (Constants.VIBRATIONTHRESHOLD - minutesLeft) * 100;
+            int time = (Constants.VIBRATION_THRESHOLD - minutesLeft) * 100;
             v.vibrate(time);
         }
     }
