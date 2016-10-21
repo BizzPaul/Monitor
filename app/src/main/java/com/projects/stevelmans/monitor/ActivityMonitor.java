@@ -1,29 +1,20 @@
 package com.projects.stevelmans.monitor;
 
 import android.app.ActivityManager;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
-import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
-import static java.security.AccessController.getContext;
 
 /**
  * Created by stevelmans on 17/10/16.
  */
 
-public class ActivityMonitor {
-    public ActivityMonitor() {
+class ActivityMonitor {
+    ActivityMonitor() {
         m_ExcludedPrograms = new ArrayList<>();
 
         m_ExcludedPrograms.add(Constants.EXCLUDE_SELF);
@@ -33,7 +24,7 @@ public class ActivityMonitor {
     private int m_Quota;
     private List<String> m_ExcludedPrograms;
 
-    public boolean QuotaReached(Context context) {
+    boolean QuotaReached(Context context) {
         boolean result = false;
 
         if (IsMonitoredAppRunning(context)) {
@@ -48,7 +39,7 @@ public class ActivityMonitor {
         return result;
     }
 
-    public boolean IsMonitoredAppRunning(Context context) {
+    private boolean IsMonitoredAppRunning(Context context) {
         boolean result = true;
 
         if (m_ExcludedPrograms.contains(GetAppInForeground(context))) {
@@ -58,26 +49,26 @@ public class ActivityMonitor {
         return result;
     }
 
-    public int QuotaLeft(Context context) {
+    int QuotaLeft() {
         return Constants.MAX_QUOTA - m_Quota;
     }
 
-    public void ReadQuota(Context context) {
+    void ReadQuota(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 Constants.QUOTA_STORAGE_NAME, Context.MODE_PRIVATE);
-        m_Quota = sharedPref.getInt(Constants.QUOTA_STORAGE_VALUE, 0);;
+        m_Quota = sharedPref.getInt(Constants.QUOTA_STORAGE_VALUE, 0);
     }
 
-    public void ResetQuota(Context context) {
+    private void ResetQuota(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 Constants.QUOTA_STORAGE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt(Constants.QUOTA_STORAGE_VALUE, 0);
-        editor.commit();
+        editor.apply();
         m_Quota = sharedPref.getInt(Constants.QUOTA_STORAGE_VALUE, 0);
     }
 
-    public void SaveQuota(Context context) {
+    private void SaveQuota(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 Constants.QUOTA_STORAGE_NAME, Context.MODE_PRIVATE);
 
@@ -86,17 +77,17 @@ public class ActivityMonitor {
         if (currentDay == savedDay) {
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putInt(Constants.QUOTA_STORAGE_VALUE, m_Quota);
-            editor.commit();
+            editor.apply();
         }
         else {
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putInt(Constants.QUOTA_STORAGE_DAYOFYEAR, currentDay);
             editor.putInt(Constants.QUOTA_STORAGE_VALUE, 0);
-            editor.commit();
+            editor.apply();
         }
     }
 
-    public String GetAppInForeground(Context context) {
+    private String GetAppInForeground(Context context) {
         String result = null;
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> runningProcesses = am.getRunningAppProcesses();

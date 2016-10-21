@@ -3,14 +3,11 @@ package com.projects.stevelmans.monitor;
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
-import android.view.WindowManager;
 
 /**
  * This {@code IntentService} does the app's actual work.
@@ -33,10 +30,7 @@ public class SchedulingService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        final Uri data = intent.getData();
-
-
-        if (intent.getAction() == Constants.ACTIONS.RELEASE) {
+        if (intent.getAction().equals(Constants.ACTIONS.RELEASE)) {
             m_Monitor.ResetQuota(getBaseContext());
         } else {
             m_Monitor.ReadQuota(getBaseContext());
@@ -67,8 +61,6 @@ public class SchedulingService extends IntentService {
 
     private Handler handler = new Handler();
     private Runnable runnable = new Runnable() {
-        private SchedulingService data;
-
         @Override
         public void run() {
             // restart in 1000 milliseconds

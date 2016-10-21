@@ -1,15 +1,11 @@
 package com.projects.stevelmans.monitor;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-
-import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
     AlarmReceiver alarm = new AlarmReceiver();
@@ -50,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 Constants.MONITORING_ENABLED, Context.MODE_PRIVATE);
        SharedPreferences.Editor editor = sharedPref.edit();
        editor.putBoolean(Constants.MONITORING_ENABLED, m_RepeatChkBx.isChecked());
-       editor.commit();
+       editor.apply();
     }
 
 
