@@ -44,7 +44,7 @@ public class SchedulingService extends IntentService {
                 handler.postDelayed(runnable, 100);
             } else {
                 String message;
-                int minutesLeft = m_Monitor.QuotaLeft(getBaseContext());
+                int minutesLeft = m_Monitor.QuotaLeft();
                 if (minutesLeft == 1) {
                     message = getString(R.string.quota_available_minute_message);
                 } else {

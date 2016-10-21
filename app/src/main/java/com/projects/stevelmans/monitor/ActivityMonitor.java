@@ -59,7 +59,7 @@ class ActivityMonitor {
         m_Quota = sharedPref.getInt(Constants.QUOTA_STORAGE_VALUE, 0);
     }
 
-    private void ResetQuota(Context context) {
+    void ResetQuota(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 Constants.QUOTA_STORAGE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
