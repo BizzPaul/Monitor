@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     public void Initialise(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 Constants.MONITORING_ENABLED, Context.MODE_PRIVATE);
-        m_RepeatChkBx.setChecked(sharedPref.getBoolean(Constants.QUOTA_STORAGE_VALUE, false));
+        m_RepeatChkBx.setChecked(sharedPref.getBoolean(Constants.MONITORING_ENABLED, false));
     }
 
     public void SaveSettings(Context context) {
