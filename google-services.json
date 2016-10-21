@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "16193567578",
+    "firebase_url": "https://monitor-facc5.firebaseio.com",
+    "project_id": "monitor-facc5",
+    "storage_bucket": "monitor-facc5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:16193567578:android:46b23d89bce893a3",
+        "android_client_info": {
+          "package_name": "com.project.stevelmans.monitor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "16193567578-qaul838orop32qrg6snftgijmejebibc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5AkQ4APnhjQ8dlInkxC1S2sJBhcpr5b0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

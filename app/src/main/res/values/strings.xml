@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Monitor</string>
+    <string name="notification_title">Monitor</string>
+    <string name="title_activity_login">Monitor</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Wachtwoord</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Monitor</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="quota_reached_message">Genoeg voor vandaag</string>
+    <string name="quote_available_message">Nog %1$d minuten over</string>
+    <string name="quota_available_minute_message">Nog 1 minuut over</string>
+</resources>
