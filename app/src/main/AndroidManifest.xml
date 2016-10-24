@@ -31,10 +31,6 @@
         </receiver>
 
         <service android:name=".SchedulingService" />
-        <service
-            android:name=".HUD"
-            android:enabled="true" />
-
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />

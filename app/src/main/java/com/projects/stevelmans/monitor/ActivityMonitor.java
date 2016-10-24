@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * Created by stevelmans on 17/10/16.
+ * Monitors the activity and records the spent time
  */
 
 class ActivityMonitor {
@@ -97,9 +98,8 @@ class ActivityMonitor {
         List<ActivityManager.RunningAppProcessInfo> runningProcesses = am.getRunningAppProcesses();
         for (ActivityManager.RunningAppProcessInfo processInfo : runningProcesses) {
             if (processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                for (String activeProcess : processInfo.pkgList) {
-                    result = activeProcess;
-                    return result;
+                if (processInfo.pkgList.length > 0) {
+                    result = processInfo.pkgList[0];
                 }
             }
         }
