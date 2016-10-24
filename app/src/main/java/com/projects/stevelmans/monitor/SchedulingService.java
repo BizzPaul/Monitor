@@ -30,7 +30,7 @@ public class SchedulingService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        if (intent.getAction().equals(Constants.ACTIONS.RELEASE)) {
+        if ( intent.getAction() == (Constants.ACTIONS.RELEASE)) {
             m_Monitor.ResetQuota(getBaseContext());
         }
         else if (intent.getAction().equals(Constants.ACTIONS.ADJUST)) {
