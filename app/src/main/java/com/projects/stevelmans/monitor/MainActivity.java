@@ -4,11 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.AbsSeekBar;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.SeekBar;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class QuotaBarListener implements SeekBar.OnSeekBarChangeListener {
-        int progressChanged = 0;
-
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
             m_QuotaText.setText(progress);
         }
