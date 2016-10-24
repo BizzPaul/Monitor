@@ -48,12 +48,14 @@ public class MainActivity extends AppCompatActivity {
 
     private class QuotaBarListener implements SeekBar.OnSeekBarChangeListener {
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
-            m_QuotaText.setText(progress);
+            m_QuotaText.setText(String.valueOf(progress));
         }
 
         public void onStartTrackingTouch(SeekBar seekBar) {}
 
-        public void onStopTrackingTouch(SeekBar seekBar) {}
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            SaveSettings(getBaseContext());
+        }
     }
 
     public void Initialise(Context context) {
@@ -61,8 +63,9 @@ public class MainActivity extends AppCompatActivity {
                 Constants.MONITORING_ENABLED, Context.MODE_PRIVATE);
         m_RepeatChkBx.setChecked(sharedPref.getBoolean(Constants.MONITORING_ENABLED, false));
         sharedPref = context.getSharedPreferences(
-                Constants.MAX_QUOTA_NAME, Context.MODE_PRIVATE);
-        m_QuotaBar.setProgress(sharedPref.getInt(Constants.MAX_QUOTA_NAME, Constants.DEFAULT_MAX_QUOTA));
+                Constants.QUOTA_STORAGE_MAX, Context.MODE_PRIVATE);
+        int test = sharedPref.getInt(Constants.QUOTA_STORAGE_MAX, Constants.DEFAULT_MAX_QUOTA);
+        m_QuotaBar.setProgress(sharedPref.getInt(Constants.QUOTA_STORAGE_MAX, Constants.DEFAULT_MAX_QUOTA));
         sharedPref = context.getSharedPreferences(
                 Constants.PASSWORD_STORAGE_NAME, Context.MODE_PRIVATE);
         m_Password.setText(sharedPref.getString(Constants.PASSWORD_STORAGE_NAME, Constants.DEFAULT_PASSWORD));
@@ -75,14 +78,15 @@ public class MainActivity extends AppCompatActivity {
         editor.putBoolean(Constants.MONITORING_ENABLED, m_RepeatChkBx.isChecked());
         editor.apply();
         sharedPref = context.getSharedPreferences(
-                Constants.MAX_QUOTA_NAME, Context.MODE_PRIVATE);
+                Constants.QUOTA_STORAGE_MAX, Context.MODE_PRIVATE);
         editor = sharedPref.edit();
-        editor.putInt(Constants.MAX_QUOTA_NAME, m_QuotaBar.getProgress());
+        int test = m_QuotaBar.getProgress();
+        editor.putInt(Constants.QUOTA_STORAGE_MAX, m_QuotaBar.getProgress());
         editor.apply();
         sharedPref = context.getSharedPreferences(
                 Constants.PASSWORD_STORAGE_NAME, Context.MODE_PRIVATE);
         editor = sharedPref.edit();
         editor.putString(Constants.PASSWORD_STORAGE_NAME, m_Password.getText().toString());
-        editor.apply();
+        editor.commit();
     }
 }

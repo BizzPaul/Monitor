@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private class QuotaBarListener implements SeekBar.OnSeekBarChangeListener {
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            m_QuotaText.setText(progress);
+            m_QuotaText.setText(String.valueOf(progress));
         }
 
         public void onStartTrackingTouch(SeekBar seekBar) {

@@ -23,6 +23,7 @@ class ActivityMonitor {
     }
 
     private int m_Quota;
+    private int m_MaxQuota;
     private List<String> m_ExcludedPrograms;
 
     boolean QuotaReached(Context context) {
@@ -32,7 +33,7 @@ class ActivityMonitor {
             m_Quota++;
             SaveQuota(context);
 
-            if (m_Quota >= Constants.DEFAULT_MAX_QUOTA) {
+            if (m_Quota >= m_MaxQuota) {
                 result = true;
             }
         }
@@ -51,17 +52,20 @@ class ActivityMonitor {
     }
 
     int QuotaLeft() {
-        return Constants.DEFAULT_MAX_QUOTA - m_Quota;
+        return m_MaxQuota - m_Quota;
     }
 
-    void AdjustQuota(Context context, int extraMinutes) {
-        m_Quota = extraMinutes;
+    void AdjustQuota(Context context, int value) {
+        m_Quota = value;
         SaveQuota(context);
     }
     void ReadQuota(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 Constants.QUOTA_STORAGE_NAME, Context.MODE_PRIVATE);
         m_Quota = sharedPref.getInt(Constants.QUOTA_STORAGE_VALUE, 0);
+        sharedPref = context.getSharedPreferences(
+                Constants.QUOTA_STORAGE_MAX, Context.MODE_PRIVATE);
+        m_MaxQuota = sharedPref.getInt(Constants.QUOTA_STORAGE_MAX, Constants.DEFAULT_MAX_QUOTA);
     }
 
     void ResetQuota(Context context) {
