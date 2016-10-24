@@ -13,6 +13,35 @@
 
     <!-- Login progress -->
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="68dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Extra"
+            android:ems="10"
+            android:id="@+id/extraTimeText" />
+
+        <SeekBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekBarExtraTime"
+            android:layout_weight="1" />
+
+        <EditText
+            android:layout_width="63dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:ems="10"
+            android:id="@+id/extraMinutesText" />
+
+    </LinearLayout>
+
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"

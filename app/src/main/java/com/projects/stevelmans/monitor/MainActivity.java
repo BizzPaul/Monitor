@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.AbsSeekBar;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 
 public class MainActivity extends AppCompatActivity {
@@ -14,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     CheckBox m_RepeatChkBx;
     SeekBar m_QuotaBar;
     EditText m_Password;
+    EditText m_QuotaText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         m_RepeatChkBx = (CheckBox) findViewById( R.id.checkBox );
         m_QuotaBar = (SeekBar) findViewById(R.id.seekBar);
         m_Password = (EditText) findViewById(R.id.passwordText);
+        m_QuotaText = (EditText) findViewById(R.id.quotaText);
         Initialise(getBaseContext());
 
         m_RepeatChkBx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
@@ -40,6 +44,20 @@ public class MainActivity extends AppCompatActivity {
                 SaveSettings(getBaseContext());
             }
         });
+
+        m_QuotaBar.setOnSeekBarChangeListener(new QuotaBarListener());
+    }
+
+    private class QuotaBarListener implements SeekBar.OnSeekBarChangeListener {
+        int progressChanged = 0;
+
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+            m_QuotaText.setText(progress);
+        }
+
+        public void onStartTrackingTouch(SeekBar seekBar) {}
+
+        public void onStopTrackingTouch(SeekBar seekBar) {}
     }
 
     public void Initialise(Context context) {

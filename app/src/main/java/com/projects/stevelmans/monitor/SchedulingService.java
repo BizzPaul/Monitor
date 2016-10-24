@@ -32,7 +32,12 @@ public class SchedulingService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         if (intent.getAction().equals(Constants.ACTIONS.RELEASE)) {
             m_Monitor.ResetQuota(getBaseContext());
-        } else {
+        }
+        else if (intent.getAction().equals(Constants.ACTIONS.ADJUST)) {
+            int extraMinutes = intent.getIntExtra(Constants.QUOTA_EXTRA_VALUE, 0);
+            m_Monitor.AdjustQuota(getBaseContext(), extraMinutes);
+        }
+        else {
             m_Monitor.ReadQuota(getBaseContext());
             if (m_Monitor.QuotaReached(getBaseContext())) {
                 sendNotification(getString(R.string.quota_reached_message), 0);

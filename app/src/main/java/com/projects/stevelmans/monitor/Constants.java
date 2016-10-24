@@ -16,6 +16,7 @@ final class Constants {
     static final String QUOTA_STORAGE_NAME = "quota.txt";
     static final String QUOTA_STORAGE_DAYOFYEAR = "date";
     static final String QUOTA_STORAGE_VALUE = "value";
+    static final String QUOTA_EXTRA_VALUE = "quote extra vlaue";
     static final String MONITORING_ENABLED = "monitoring enabled";
     static final String PASSWORD = "password";
     static final int VIBRATION_THRESHOLD = 10;
@@ -25,6 +26,7 @@ final class Constants {
     class ACTIONS
     {
         static final String RELEASE = "release";
+        static final String ADJUST = "ADJUST";
         //static final String LOGIN = "login";
     }
 

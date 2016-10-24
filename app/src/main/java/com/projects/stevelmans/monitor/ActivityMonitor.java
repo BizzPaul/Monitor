@@ -53,6 +53,10 @@ class ActivityMonitor {
         return Constants.DEFAULT_MAX_QUOTA - m_Quota;
     }
 
+    void AdjustQuota(Context context, int extraMinutes) {
+        m_Quota = extraMinutes;
+        SaveQuota(context);
+    }
     void ReadQuota(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 Constants.QUOTA_STORAGE_NAME, Context.MODE_PRIVATE);
