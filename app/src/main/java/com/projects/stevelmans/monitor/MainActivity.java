@@ -85,6 +85,4 @@ public class MainActivity extends AppCompatActivity {
         editor.putString(Constants.PASSWORD_STORAGE_NAME, m_Password.getText().toString());
         editor.apply();
     }
-
-
 }
