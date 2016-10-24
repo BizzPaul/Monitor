@@ -31,9 +31,6 @@ public class SchedulingService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         if ( intent.getAction() == (Constants.ACTIONS.RELEASE)) {
-            m_Monitor.ResetQuota(getBaseContext());
-        }
-        else if (intent.getAction().equals(Constants.ACTIONS.ADJUST)) {
             int extraMinutes = intent.getIntExtra(Constants.QUOTA_EXTRA_VALUE, 0);
             m_Monitor.AdjustQuota(getBaseContext(), extraMinutes);
         }

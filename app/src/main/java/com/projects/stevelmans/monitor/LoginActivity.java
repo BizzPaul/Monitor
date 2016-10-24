@@ -49,16 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         public void onStartTrackingTouch(SeekBar seekBar) {
         }
 
-        public void onStopTrackingTouch(SeekBar seekBar) {
-            SetExtraTime(seekBar.getProgress());
-        }
-    }
-
-    private void SetExtraTime(int value) {
-        Intent intent = new Intent(this, SchedulingService.class);
-        intent.setAction(Constants.ACTIONS.RELEASE);
-        intent.putExtra(Constants.QUOTA_EXTRA_VALUE, value);
-        startService(intent);
+        public void onStopTrackingTouch(SeekBar seekBar) {}
     }
 
     @Override
@@ -83,9 +74,10 @@ public class LoginActivity extends AppCompatActivity {
         if (enteredPassword.equals(password))
         {
             Tracker.Locked = false;
-            Intent resetIntent = new Intent(this, SchedulingService.class);
-            resetIntent.setAction(Constants.ACTIONS.RELEASE);
-            startService(resetIntent);
+            Intent intent = new Intent(this, SchedulingService.class);
+            intent.setAction(Constants.ACTIONS.RELEASE);
+            intent.putExtra(Constants.QUOTA_EXTRA_VALUE, m_QuotaBar.getProgress());
+            startService(intent);
         }
     }
 }

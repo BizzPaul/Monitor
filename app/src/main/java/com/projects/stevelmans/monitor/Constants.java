@@ -26,7 +26,6 @@ final class Constants {
     class ACTIONS
     {
         static final String RELEASE = "release";
-        static final String ADJUST = "ADJUST";
         //static final String LOGIN = "login";
     }
 
