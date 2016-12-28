@@ -56,7 +56,11 @@ class ActivityMonitor {
     }
 
     void AdjustQuota(Context context, int value) {
-        m_Quota = value;
+        m_Quota = m_Quota - value;
+        if (m_Quota < 0)
+        {
+            m_Quota = 0;
+        }
         SaveQuota(context);
     }
     void ReadQuota(Context context) {
@@ -86,13 +90,13 @@ class ActivityMonitor {
         if (currentDay == savedDay) {
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putInt(Constants.QUOTA_STORAGE_VALUE, m_Quota);
-            editor.apply();
+            editor.commit();
         }
         else {
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putInt(Constants.QUOTA_STORAGE_DAYOFYEAR, currentDay);
             editor.putInt(Constants.QUOTA_STORAGE_VALUE, 0);
-            editor.apply();
+            editor.commit();
         }
     }
 
@@ -104,6 +108,7 @@ class ActivityMonitor {
             if (processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
                 if (processInfo.pkgList.length > 0) {
                     result = processInfo.pkgList[0];
+                    break;
                 }
             }
         }

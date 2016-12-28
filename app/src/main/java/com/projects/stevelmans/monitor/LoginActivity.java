@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A login screen that offers login via email/password.
@@ -78,6 +79,8 @@ public class LoginActivity extends AppCompatActivity {
             intent.setAction(Constants.ACTIONS.RELEASE);
             intent.putExtra(Constants.QUOTA_EXTRA_VALUE, m_QuotaBar.getProgress());
             startService(intent);
+            //moveTaskToBack(true);
+            this.finish();
         }
     }
 }

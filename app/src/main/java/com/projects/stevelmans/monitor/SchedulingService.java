@@ -26,7 +26,7 @@ public class SchedulingService extends IntentService {
     public static final int NOTIFICATION_ID = 1;
 
     public ActivityMonitor m_Monitor;
-    private Intent m_LogingIntent;
+    private Intent m_LoginIntent;
 
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -40,9 +40,10 @@ public class SchedulingService extends IntentService {
                 sendNotification(getString(R.string.quota_reached_message), 0);
 
                 // start obnoxious activity
-                m_LogingIntent = new Intent(this, LoginActivity.class);
-                m_LogingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                handler.postDelayed(runnable, 100);
+                m_LoginIntent = new Intent(this, LoginActivity.class);
+                m_LoginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(m_LoginIntent);
+                //handler.postDelayed(runnable, 100);
             } else {
                 String message;
                 int minutesLeft = m_Monitor.QuotaLeft();
@@ -71,7 +72,7 @@ public class SchedulingService extends IntentService {
                 // check if not allowed app is running
                 m_Monitor.ReadQuota(getBaseContext());
                 if (m_Monitor.QuotaReached(getBaseContext())) {
-                    startActivity(m_LogingIntent);
+                    startActivity(m_LoginIntent);
                 }
             }
         }
@@ -89,13 +90,15 @@ public class SchedulingService extends IntentService {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
+                        .setContentIntent(contentIntent)
+                        .setTicker(msg)
+                        //.setAutoCancel(true)
                         .setSmallIcon(R.drawable.lighthouse)
                         .setContentTitle(getString(R.string.notification_title))
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(msg))
                         .setContentText(msg);
 
-        mBuilder.setContentIntent(contentIntent);
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
 
         if (minutesLeft <= Constants.VIBRATION_THRESHOLD) {

@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     SeekBar m_QuotaBar;
     EditText m_Password;
     EditText m_QuotaText;
+    EditText m_UsedText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,9 @@ public class MainActivity extends AppCompatActivity {
         m_QuotaBar = (SeekBar) findViewById(R.id.seekBar);
         m_Password = (EditText) findViewById(R.id.passwordText);
         m_QuotaText = (EditText) findViewById(R.id.quotaText);
+        m_UsedText = (EditText) findViewById(R.id.remainingText);
         Initialise(getBaseContext());
+
 
         m_RepeatChkBx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
@@ -46,6 +49,16 @@ public class MainActivity extends AppCompatActivity {
         m_QuotaBar.setOnSeekBarChangeListener(new QuotaBarListener());
     }
 
+    protected void onResume () {
+        super.onResume();
+        SharedPreferences sharedPref = getBaseContext().getSharedPreferences(
+                Constants.QUOTA_STORAGE_NAME, Context.MODE_PRIVATE);
+        if (sharedPref.contains(Constants.QUOTA_STORAGE_VALUE)) {
+            int quota = sharedPref.getInt(Constants.QUOTA_STORAGE_VALUE, 0);
+            m_UsedText.setText("Used " + String.valueOf(quota));
+        }
+    }
+
     private class QuotaBarListener implements SeekBar.OnSeekBarChangeListener {
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
             m_QuotaText.setText(String.valueOf(progress));
@@ -64,11 +77,15 @@ public class MainActivity extends AppCompatActivity {
         m_RepeatChkBx.setChecked(sharedPref.getBoolean(Constants.MONITORING_ENABLED, false));
         sharedPref = context.getSharedPreferences(
                 Constants.QUOTA_STORAGE_MAX, Context.MODE_PRIVATE);
-        int test = sharedPref.getInt(Constants.QUOTA_STORAGE_MAX, Constants.DEFAULT_MAX_QUOTA);
-        m_QuotaBar.setProgress(sharedPref.getInt(Constants.QUOTA_STORAGE_MAX, Constants.DEFAULT_MAX_QUOTA));
+        int quota = sharedPref.getInt(Constants.QUOTA_STORAGE_MAX, Constants.DEFAULT_MAX_QUOTA);
+        m_QuotaBar.setProgress(quota);
+        m_QuotaText.setText(String.valueOf(quota));
         sharedPref = context.getSharedPreferences(
                 Constants.PASSWORD_STORAGE_NAME, Context.MODE_PRIVATE);
         m_Password.setText(sharedPref.getString(Constants.PASSWORD_STORAGE_NAME, Constants.DEFAULT_PASSWORD));
+        sharedPref = context.getSharedPreferences(
+                Constants.QUOTA_STORAGE_VALUE, Context.MODE_PRIVATE);
+        m_UsedText.setText("Used " + String.valueOf(sharedPref.getInt(Constants.QUOTA_STORAGE_VALUE, 0)));
     }
 
     public void SaveSettings(Context context) {
