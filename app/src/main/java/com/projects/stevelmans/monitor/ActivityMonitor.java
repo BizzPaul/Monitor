@@ -20,6 +20,9 @@ class ActivityMonitor {
 
         m_ExcludedPrograms.add(Constants.EXCLUDE_SELF);
         m_ExcludedPrograms.add(Constants.EXCLUDE_DESKTOP);
+        m_ExcludedPrograms.add(Constants.EXCLUDE_ANDROID);
+        m_ExcludedPrograms.add(Constants.EXCLUDE_ANDROID_LAUNCHER);
+        m_ExcludedPrograms.add(Constants.EXCLUDE_ANDROID_PROVIDERS);
     }
 
     private int m_Quota;
@@ -44,11 +47,43 @@ class ActivityMonitor {
     private boolean IsMonitoredAppRunning(Context context) {
         boolean result = true;
 
-        if (m_ExcludedPrograms.contains(GetAppInForeground(context))) {
+        String appName = FormatName(GetAppInForeground(context));
+        if (m_ExcludedPrograms.contains(appName)) {
             result = false;
         }
 
         return result;
+    }
+
+    private String FormatName(String name) {
+        String result = name;
+
+        if (name != null)
+        {
+            int index = nthIndexOf(name, '.', 3);
+
+            if (index > 0) {
+                result = name.substring(0, index);
+            }
+        }
+
+        return result;
+    }
+
+    public static int nthIndexOf(String text, char needle, int n)
+    {
+        for (int i = 0; i < text.length(); i++)
+        {
+            if (text.charAt(i) == needle)
+            {
+                n--;
+                if (n == 0)
+                {
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 
     int QuotaLeft() {
@@ -107,8 +142,11 @@ class ActivityMonitor {
         for (ActivityManager.RunningAppProcessInfo processInfo : runningProcesses) {
             if (processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
                 if (processInfo.pkgList.length > 0) {
-                    result = processInfo.pkgList[0];
-                    break;
+                    if (!m_ExcludedPrograms.contains(FormatName(processInfo.pkgList[0])))
+                    {
+                        result = processInfo.pkgList[0];
+                        break;
+                    }
                 }
             }
         }

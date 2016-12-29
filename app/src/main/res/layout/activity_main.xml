@@ -27,7 +27,8 @@
                 android:id="@+id/seekBar"
                 android:max="120"
                 android:progress="0"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:clickable="false" />
 
             <EditText
                 android:layout_width="wrap_content"
@@ -36,7 +37,11 @@
                 android:ems="10"
                 android:id="@+id/quotaText"
                 android:layout_weight="1"
-                android:labelFor="@+id/seekBar" />
+                android:labelFor="@+id/seekBar"
+                tools:inputType="none"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
 
         </LinearLayout>
 
@@ -83,7 +88,11 @@
                 android:inputType="textPersonName"
                 android:text="Quota"
                 android:ems="10"
-                android:id="@+id/quoteLabel" />
+                android:id="@+id/quoteLabel"
+                tools:inputType="none"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
 
         </LinearLayout>
 
@@ -100,7 +109,10 @@
                 android:ems="10"
                 android:id="@+id/remainingText"
                 android:layout_weight="1"
-                android:clickable="false" />
+                tools:inputType="none"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
         </LinearLayout>
 
     </LinearLayout>
